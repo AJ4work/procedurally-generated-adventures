@@ -13,6 +13,8 @@ async def app():
     """
     if "current_form" not in st.session_state:
         st.session_state["current_form"] = 1
+    if "adventure_options" not in st.sessions_state:
+        st.sessions_state["adventure_options"] = None
     if "character_settings" not in st.session_state:
         st.session_state["character_settings"] = {}
     if "message_history" not in st.session_state:
