@@ -94,7 +94,9 @@ async def intro():
             st.session_state["character_settings"]["character_name"] = character_name
             st.session_state["character_settings"]["character_sex"] = character_sex
             st.session_state["character_settings"]["character_description"] = character_description
-            st.session_state["message_history"].append({"role": "user", "content": f"Generate a scene in {adventure_options} where is in Town and I stumble upon a {random.choice(story[st.session_state["adventure_options"]]["Town"])}."})
+            st.session_state["story_settings"]["town_loc"] = random.choice(story[st.session_state["adventure_options"]]["Town"])
+            loc = st.session_state["story_settings"]["town_loc"]
+            st.session_state["message_history"].append({"role": "user", "content": f"Generate a scene in {adventure_options} where is in Town and I stumble upon a {loc}."})
             st.session_state["message_history"].append({"role": "system", "content": "You are a story generation assistant called ProcGenA that creates a scene based on a requested scene"})
             st.session_state["message_history"].append({"role": "system", "content": f"You will address the user character as {character_name}. The user's sex is {character_sex}. Some information about the user is {character_description}"})
             st.session_state["message_history"].append({"role": "system", "content": f"You will not hint at the user's next quest."})
