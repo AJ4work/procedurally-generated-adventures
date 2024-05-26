@@ -1,1 +1,1 @@
-# procedurally-generated-stories
+# procedurally-generated-adventures
