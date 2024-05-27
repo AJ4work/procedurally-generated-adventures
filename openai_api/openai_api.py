@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = OpenAI( #api_key=st.secrets["API_key"], 
-                 api_key=os.environ.get("API_KEY")
+client = OpenAI( api_key=st.secrets["API_KEY"], 
+                 #api_key=os.environ.get("API_KEY")
                 )
 
 async def call_openai(message):
