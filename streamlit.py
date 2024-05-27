@@ -160,8 +160,9 @@ async def scene_2():
     if submit3:
         antagonist = random.choice(story[st.session_state["adventure_options"]]["Antagonist"])
         st.session_state["story_settings"]["antagonist"] = antagonist
+        quest = st.session_state["story_settings"]["quest"]
         st.session_state["message_history"].append({"role": "user", "content": action})
-        st.session_state["message_history"].append({"role": "system", "content": f"Based on the user input generate a scene the user then goes on to do {st.session_state["story_settings"]["quest"]}. During the user's travels, he comes upon the {antagonist}"})
+        st.session_state["message_history"].append({"role": "system", "content": f"Based on the user input generate a scene the user then goes on to do {quest}. During the user's travels, he comes upon the {antagonist}"})
         st.session_state["message_history"].append({"role": "system", "content": f"The encounter will only have the {antagonist} and user merely meet each other"})
         st.session_state["message_history"].append({"role": "system", "content": f"You will ask the user what the user wants to do to defeat the {antagonist} the end of the scene you generate"})
         response = await openai_api.call_openai(st.session_state["message_history"])
@@ -185,13 +186,15 @@ async def scene_3():
     story = st.session_state["story_scenes"]
 
     if submit4:
-        conclusion = random.choice(story[st.session_state["adventure_options"]]["Antagonist"])
+        conclusion = random.choice(story[st.session_state["adventure_options"]]["Conclusion"])
+        quest = st.session_state["story_settings"]["quest"]
+        antagonist = st.session_state["story_settings"]["antagonist"]
         st.session_state["story_settings"]["conclusion"] = conclusion
         st.session_state["message_history"].append({"role": "user", "content": action})
         st.session_state["message_history"].append({"role": "system", "content": f"Do not ask for user input"})
-        st.session_state["message_history"].append({"role": "system", "content": f"Based on user input knowing that the input is merely an attempt, generate an outcome of the battle with user and {st.session_state["story_settings"]["antagonist"]} with the conclusion that the user {conclusion}"})
+        st.session_state["message_history"].append({"role": "system", "content": f"Based on user input knowing that the input is merely an attempt, generate an outcome of the battle with user and {antagonist} with the conclusion that the user {conclusion}"})
         if conclusion == "User Celebrates":
-            st.session_state["message_history"].append({"role": "system", "content": f"Continue the story of the user completing {st.session_state["story_settings"]["quest"]} and then returning to the town and celebrating"})
+            st.session_state["message_history"].append({"role": "system", "content": f"Continue the story of the user completing {quest} and then returning to the town and celebrating"})
         st.session_state["message_history"].append({"role": "system", "content": f"Conclude the quest"})
         response = await openai_api.call_openai(st.session_state["message_history"])
         st.session_state["message_history"].append({"role": "assistant", "content": f"{response}"})
